@@ -6,10 +6,11 @@ from datetime import datetime
 st.set_page_config(
     page_title="ZetaWave Alpha Pro",
     page_icon="🌌",
-    layout="centered"
+    layout="centered",
+    initial_sidebar_state="expanded" # إجبار الشريط الجانبي على الظهور كخيار افتراضي عند الفتح
 )
 
-# حقن التصميم السيبراني المتقدم المتوافق مع الهواتف والأجهزة الذكية
+# حقن التصميم المحدث (إزالة حظر التولبار وإعادة ضبط أزرار الهاتف)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;600&family=Space+Grotesk:wght=500;700&family=Cairo:wght=400;700&display=swap');
@@ -20,7 +21,13 @@ st.markdown("""
         font-family: 'Inter', 'Cairo', sans-serif;
     }
     
-    [data-testid="stToolbar"] {visibility: hidden;}
+    /* جعل زر القائمة العلوي وزر ملء الشاشة مرئياً وواضحاً جداً بلون سيبراني على الهاتف */
+    button[data-testid="stSidebarCollapseButton"] {
+        background-color: rgba(0, 255, 204, 0.1) !important;
+        border: 1px solid #00ffcc !important;
+        color: #00ffcc !important;
+        border-radius: 8px !important;
+    }
     
     .alpha-header {
         text-align: center;
@@ -64,7 +71,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 2. تهيئة وإدارة متغيرات الجلسة (Session State) للمشروع الجديد
+# 2. تهيئة وإدارة متغيرات الجلسة (Session State)
 if 'is_alpha_owner' not in st.session_state:
     st.session_state['is_alpha_owner'] = True
 
@@ -74,7 +81,6 @@ if 'automated_tasks' not in st.session_state:
         {"id": "TASK-02", "name": "مزامنة قوائم الحظر السوداء من التغذيات العالمية", "interval": "كل 6 ساعات", "status": "نشط 🟢", "last_run": "منذ ساعتين"}
     ]
 
-# عرض صلاحية المطور المالك المفتوحة تلقائياً وبأبهى صورة
 if st.session_state['is_alpha_owner']:
     st.markdown("""
     <div class="owner-badge">
@@ -83,13 +89,12 @@ if st.session_state['is_alpha_owner']:
     </div>
     """, unsafe_allow_html=True)
 
-# 3. لوحة التحكم الإدارية ومركز الأتمتة والجدولة السحابية
+# 3. مركز الأتمتة والعمليات السحابية
 st.markdown("<h3 style='font-family: Cairo; font-size: 20px; color: #00ffcc;'>⚙️ مركز الأتمتة والعمليات السحابية الذكية</h3>", unsafe_allow_html=True)
 st.write("قم ببرمجة وجدولة المهام والسكربتات السيبرانية لتعمل في الخلفية على الخادم بشكل مستقل ومستمر:")
 
-# حقول إضافة مهمة جديدة مؤتمتة بشكل حقيقي
 with st.expander("➕ جدولة مهمة سيبرانية مؤتمتة جديدة في الخلفية"):
-    task_name = st.text_input("اسم المهمة المراد أتمتتها (مثال: فحص سلامة ملفات النظام):")
+    task_name = st.text_input("اسم المهمة المراد أتمتتها:")
     task_interval = st.selectbox("معدل التكرار الزمني والجدولة:", ["كل دقيقة", "كل ساعة", "كل 12 ساعة", "كل 24 ثانية (وضع الفحص المكثف)"])
     
     if st.button("🚀 حقن وتفعيل المهمة في المجدول السحابي", use_container_width=True):
@@ -108,7 +113,6 @@ with st.expander("➕ جدولة مهمة سيبرانية مؤتمتة جديد
         else:
             st.warning("يرجى إدخال اسم المهمة أولاً.")
 
-# عرض قائمة المهام المؤتمتة الحالية التي تعمل في نظام Alpha
 st.write("")
 st.markdown("<p style='font-size: 15px; font-weight: bold; color: #7928ca;'>📜 سجل العمليات والمهام النشطة في الخلفية (Active Workers Log):</p>", unsafe_allow_html=True)
 
@@ -122,4 +126,5 @@ for task in st.session_state['automated_tasks']:
     """, unsafe_allow_html=True)
 
 st.write("---")
-st.info("💡 استخدم الشريط الجانبي للتنقل بين أسلحة منصة Alpha الاستخباراتية والجنائية المتقدمة.")
+st.info("💡 التبويبات والأدوات الفرعية متوفرة الآن داخل القائمة الجانبية المحدثة.")
+
